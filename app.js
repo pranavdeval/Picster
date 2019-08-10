@@ -22,7 +22,7 @@ mongoose.connect("mongodb+srv://pranavdeval:Adilabad1@cluster0-onhsi.mongodb.net
     useNewUrlParser: true,
     useCreateIndex: true
 }).then( function() {
-    console.log("Connected!");
+    console.log("Connected to DB!");
 }).catch(err => {
     console.log("ERROR:",err.message);
 });
