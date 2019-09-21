@@ -10,7 +10,7 @@ router.get("/",function(req,res) {
     res.render("landing");
 });
 //====================================================================================
-//AUTH ROUTES
+//AUTH ROUTES                                                                        |
 //====================================================================================
 
 //SHOW REGISTER FORM
@@ -24,7 +24,7 @@ router.post("/register",function(req,res) {
         if(err) {
             console.log(err);
             req.flash("error",err.message);
-            return res.render("register");
+            return res.render("register",{error: err.message});
         }
         passport.authenticate("local")(req,res,function() {
             req.flash("success","Welcome to YelpCamp "+user.username);
@@ -45,7 +45,7 @@ router.post("/login",passport.authenticate("local",{
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: "Welcome to Yelpcamp!" 
-}),function(req,res) {
+}),function(req,res) {                                                                                         
 });
 
 router.get("/logout",function(req,res) {
@@ -56,3 +56,8 @@ router.get("/logout",function(req,res) {
 
 
 module.exports = router;
+
+
+/* 
+It contains all the authentication routes!
+*/

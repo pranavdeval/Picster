@@ -1,8 +1,8 @@
-var express=require("express");
-var router = express.Router();
-var Campground = require("../models/campground");
-var Comment = require("../models/comment");
-var middleware       = require("../middleware");
+var express          = require("express");
+var router           = express.Router();
+var Campground       = require("../models/campground");
+var Comment          = require("../models/comment");
+var middleware       = require("../middleware");       //middleware is an object which has middleware functions in it!
 
 //INDEX ROUTE - DISPLAYS ALL THE CAMPGROUNDS
 router.get("/campgrounds",function(req,res) {
@@ -51,13 +51,13 @@ router.get("/campgrounds/:id",function(req,res) {
   
 });
 
-//EDIT ROUTE
+//EDIT ROUTE - SHOWS THE EDIT CAMPGROUND FORM
 router.get("/campgrounds/:id/edit",middleware.checkCampgroundOwnership,function(req,res) {
     Campground.findById(req.params.id,function(err,foundCampground) {
         res.render("campgrounds/edit",{campground: foundCampground});
     }); 
 });
-//UPDATE ROUTE
+//UPDATE ROUTE - UPDATES A PARTICULAR CAMPGROUND
 router.put("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,res) {
     Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
         if(err) {
@@ -68,7 +68,7 @@ router.put("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,r
         }
     })
 });
-//DESTROY ROUTE
+//DESTROY ROUTE - DESTROYS A PARTICULAR CAMPGROUND
 router.delete("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,res) {
     Campground.findByIdAndDelete(req.params.id,function(err) {
         if(err) {
@@ -81,3 +81,17 @@ router.delete("/campgrounds/:id",middleware.checkCampgroundOwnership,function(re
 });
 
 module.exports = router;
+
+/*
+===========================================================================
+It has all the routes related to the campgrounds                          |
+===========================================================================
+INDEX ROUTE   - DISPLAYS ALL THE CAMPGROUNDS                              |
+CREATE ROUTE  - CREATS A NEW CAMPGROUND BY ADDING IT INTO THE DATABASE    |
+NEW ROUTE     - SHOWS THE NEW CAMPGROUND FORM                             |
+SHOW ROUTE    - SHOWS INFO ABOUT ONE SPECIFIC CAMPGROUND                  |
+EDIT ROUTE    - SHOWS THE EDIT CAMPGROUND FORM                            |
+UPDATE ROUTE  - UPDATES A PARTICULAR CAMPGROUND                           |
+DESTROY ROUTE - DESTROYS A PARTICULAR CAMPGROUND                          |
+===========================================================================
+*/

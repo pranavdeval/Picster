@@ -1,4 +1,4 @@
-var mongoose=require("mongoose");
+ var mongoose=require("mongoose");
 
 //SCHEMA SETUP
 var campgroundSchema=new mongoose.Schema({
@@ -6,6 +6,7 @@ var campgroundSchema=new mongoose.Schema({
     price: String,
     image:String,
     description: String,
+    createdAt : {type: Date,default: Date.now},
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +14,7 @@ var campgroundSchema=new mongoose.Schema({
         },
         username: String
     },
-    comments: [
+    comments: [                                                                         //Array of comments
         {   
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"

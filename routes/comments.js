@@ -18,7 +18,7 @@ router.get("/campgrounds/:id/comments/new",middleware.isLoggedIn,function(req,re
     
 });
 
-//CREATE ROUTE
+//CREATE ROUTE - CREATES A COMMENT AND ADDS IT TO A CAMPGROUND
 router.post("/campgrounds/:id/comments",middleware.isLoggedIn,function(req,res) {
     Campground.findById(req.params.id,function(err,campground) {
         if(err) {
@@ -42,7 +42,7 @@ router.post("/campgrounds/:id/comments",middleware.isLoggedIn,function(req,res) 
         }
     })
 });
-
+//EDIT ROUTE - SHOWS A FORM TO UPDATE ANY COMMENT
 router.get("/campgrounds/:id/comments/:comment_id/edit",middleware.checkCommentOwnership,function(req,res) {
     Comment.findById(req.params.comment_id,function(err,foundComment) {
         if(err) {
@@ -52,7 +52,7 @@ router.get("/campgrounds/:id/comments/:comment_id/edit",middleware.checkCommentO
         }
     })
 });
-
+//UPDATE ROUTE - UPDATES A COMMENT
 router.put("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwnership,function(req,res) {
     Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,function(err,updatedComment) {
         if(err) {
@@ -63,7 +63,7 @@ router.put("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwners
         }
     });
 });
-
+//DESTROY ROUTE - DESTROYS A COMMENT
 router.delete("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwnership,function(req,res) {
     Comment.findByIdAndDelete(req.params.comment_id,function(err)  {
         if(err) {
@@ -77,3 +77,17 @@ router.delete("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwn
 
 
 module.exports = router;
+
+
+/*
+===========================================================================
+It has all the routes related to the comments                             |
+===========================================================================
+                                                                          |
+CREATE ROUTE  - CREATS A NEW COMMENT BY ADDING IT INTO THE DATABASE       |
+NEW ROUTE     - SHOWS THE NEW COMMENT FORM                                |                  
+EDIT ROUTE    - SHOWS THE EDIT COMMENT FORM                               |
+UPDATE ROUTE  - UPDATES A PARTICULAR COMMENT                              |
+DESTROY ROUTE - DESTROYS A PARTICULAR COMMENT                             |
+===========================================================================
+*/

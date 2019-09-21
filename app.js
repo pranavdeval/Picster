@@ -33,7 +33,7 @@ app.use(express.static(__dirname + "/public"))    //  __dirname indiacates the c
 app.use(methodOverride("_method"));
 app.use(flash());
 //seedDB();
-
+app.locals.moment = require("moment");
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "We can write anything here!",
@@ -58,11 +58,11 @@ app.use(commentRoutes);
 app.use(campgroundRoutes);
 
 
-app.listen(process.env.PORT,process.env.IP,function(){
-    console.log("YelpCamp server has started...!!!");
-});
+// app.listen(process.env.PORT,process.env.IP,function(){
+//     console.log("YelpCamp server has started...!!!");
+// });
 
 
-// app.listen(3000,"127.0.0.1",function(){
-//      console.log("YelpCamp server has started...!!!");
-//  });
+app.listen(3000,"127.0.0.1",function(){
+     console.log("YelpCamp server has started...!!!");
+ });

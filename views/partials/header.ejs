@@ -13,7 +13,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <% if(!currentUser) { %>
+                 <% if(!currentUser) { %>                                <!--   Displays the login,register links on the navbar only if  the user is not logged in -->
                     <li><a href="/login">Login</a></li>
                     <li><a href="/register">SignUp</a></li>
                 <% } else { %>
@@ -27,11 +27,11 @@
 <div class="container">
     <% if(error && error.length > 0) { %>
         <div class="alert alert-danger" role="alert">
-                <%= error %>
+                 <%= error %>                                 <!-- Displays the error flash message!   -->
         </div>
     <% } %>
     <% if(success && success.length > 0) { %>
-        <div class="alert alert-success" role="alert">
+         <div class="alert alert-success" role="alert">         <!--    Displays the success flash message -->
                 <%= success %>
         </div>
     <% } %>
