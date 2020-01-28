@@ -5,6 +5,9 @@ var Comment = require("../models/comment");
 var User = require("../models/user");
 var passport = require("passport");
 var middleware       = require("../middleware");
+var async = require("async");
+var nodemailer = require("nodemailer");
+var crypto = require("crypto");
 
 router.get("/",function(req,res) {
     res.render("landing");
@@ -19,7 +22,15 @@ router.get("/register",function(req,res) {
 });
 
 router.post("/register",function(req,res) {
-    var newUser = new User({username: req.body.username});
+    var newUser = new User({
+      username: req.body.username,
+      firstname: req.body.firstname,
+      lastname:req.body.lastname,
+      email: req.body.email
+    });
+    if(req.body.adminCode === 'secretcode123') {
+        newUser.isAdmin = true;
+    }
     User.register(newUser,req.body.password,function(err,user) {
         if(err) {
             console.log(err);
@@ -53,6 +64,32 @@ router.get("/logout",function(req,res) {
     req.flash("success","Logged You out!");
     res.redirect("/campgrounds");
 });
+
+//forgot password
+
+
+//USERS PROFILES
+
+  router.get("/users/:id",function(req,res) {
+    User.findById(req.params.id,function(err,foundUser) {
+      if(err) {
+        req.flash("error","something went wrong..");
+        res.redirect("/");
+      }
+      else {
+        Campground.find().where('author.id').equals(foundUser._id).exec(function(err,campgrounds) {
+          if(err) {
+            req.flasf("error","Oops! Something went wrong!");
+            res.redirect("/");
+          }
+          else {
+            res.render("users/show",{user: foundUser, campgrounds: campgrounds});
+          }
+        });
+      }
+    });
+  });
+
 
 
 module.exports = router;
