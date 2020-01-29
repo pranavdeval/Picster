@@ -32,7 +32,7 @@
     <div class="row">
         <% campgrounds.forEach(function(campground) { %>
             <div class="row">
-                <img style="border:10px solid black; margin-left: auto; margin-right: auto; margin-bottom: 30px; width: 50%; display: block;" src="<%= campground.image %>" width="225" height="300"/>
+                <a href = "/campgrounds/<%= campground._id %>"><img style="border:10px solid black; margin-left: auto; margin-right: auto; margin-bottom: 30px; width: 50%; display: block;" src="<%= campground.image %>" width="225" height="300"/></a>
             </div>
         <% }) %>
     </div>
