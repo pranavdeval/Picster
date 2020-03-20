@@ -15,7 +15,7 @@ router.get("/campgrounds",function(req,res) {
             } else {
                 
                 if(allCampgrounds.length < 1) {
-                    noMatch = "No campgrounds found! plaese try again...:-(";
+                    noMatch = "No images found! plaese try again...:-(";
                 }
                 res.render("campgrounds/index",{campgrounds: allCampgrounds,noMatch : noMatch});
             }
@@ -31,6 +31,7 @@ router.get("/campgrounds",function(req,res) {
         });
     }
 });
+
 //CREATE ROUTE - CREATS A NEW CAMPGROUND BY ADDING IT INTO THE DATABASE
 router.post("/campgrounds",middleware.isLoggedIn,function(req,res) {
     var name=req.body.name;      //name is the name attribute in the input tags of new.ejs
@@ -46,16 +47,18 @@ router.post("/campgrounds",middleware.isLoggedIn,function(req,res) {
         if(err) {
             console.log(err);
         }else {
-            req.flash("success","Successfully created a campground!");
+            req.flash("success","Successfully uploaded an image!");
             res.redirect("/campgrounds");      //redirect() default is get request 
         }
     });
 
 });
+
 //NEW ROUTE - SHOWS THE NEW CAMPGROUND FORM
 router.get("/campgrounds/new",middleware.isLoggedIn,function(req,res) {
     res.render("campgrounds/new");
 });
+
 //SHOW ROUTE - SHOWS INFO ABOUT ONE SPECIFIC CAMPGROUND
 router.get("/campgrounds/:id",function(req,res) {
     Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground) {
@@ -65,7 +68,6 @@ router.get("/campgrounds/:id",function(req,res) {
             res.render("campgrounds/show",{campground: foundCampground});
         }
     });
-  
 });
 
 //EDIT ROUTE - SHOWS THE EDIT CAMPGROUND FORM
@@ -74,13 +76,14 @@ router.get("/campgrounds/:id/edit",middleware.checkCampgroundOwnership,function(
         res.render("campgrounds/edit",{campground: foundCampground});
     }); 
 });
+
 //UPDATE ROUTE - UPDATES A PARTICULAR CAMPGROUND
 router.put("/campgrounds/:id",middleware.checkCampgroundOwnership,function(req,res) {
     Campground.findByIdAndUpdate(req.params.id,req.body.campground,function(err,updatedCampground) {
         if(err) {
             console.log(err);
         }else {
-            req.flash("success","Updated campground succesfully!");
+            req.flash("success","Updated image succesfully!");
             res.redirect("/campgrounds/" + req.params.id);
         }
     })
@@ -91,7 +94,7 @@ router.delete("/campgrounds/:id",middleware.checkCampgroundOwnership,function(re
         if(err) {
             console.log(err);
         }else {
-            req.flash("success","Deleted campground succesfully!");
+            req.flash("success","Deleted image succesfully!");
             res.redirect("/campgrounds");
         }
     });

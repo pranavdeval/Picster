@@ -42,6 +42,7 @@ router.post("/campgrounds/:id/comments",middleware.isLoggedIn,function(req,res) 
         }
     })
 });
+
 //EDIT ROUTE - SHOWS A FORM TO UPDATE ANY COMMENT
 router.get("/campgrounds/:id/comments/:comment_id/edit",middleware.checkCommentOwnership,function(req,res) {
     Comment.findById(req.params.comment_id,function(err,foundComment) {
@@ -52,6 +53,7 @@ router.get("/campgrounds/:id/comments/:comment_id/edit",middleware.checkCommentO
         }
     })
 });
+
 //UPDATE ROUTE - UPDATES A COMMENT
 router.put("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwnership,function(req,res) {
     Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,function(err,updatedComment) {
@@ -63,6 +65,7 @@ router.put("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwners
         }
     });
 });
+
 //DESTROY ROUTE - DESTROYS A COMMENT
 router.delete("/campgrounds/:id/comments/:comment_id",middleware.checkCommentOwnership,function(req,res) {
     Comment.findByIdAndDelete(req.params.comment_id,function(err)  {

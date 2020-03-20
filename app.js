@@ -6,12 +6,14 @@ var passport         =require("passport");
 var localStrategy    =require("passport-local");
 var methodOverride   =require("method-override");
 var flash            =require("connect-flash");
+
+// Models
 var Campground       = require("./models/campground");
 var Comment          = require("./models/comment");
 var User             = require("./models/user");
 var seedDB           = require("./seed");
 
-
+// Routes
 var campgroundRoutes = require("./routes/campgrounds");
 var commentRoutes    = require("./routes/comments");
 var indexRoutes       = require("./routes/index");
@@ -34,6 +36,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 //seedDB();
 app.locals.moment = require("moment");
+
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "We can write anything here!",
